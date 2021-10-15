@@ -29,3 +29,17 @@ fun <T> SafeResult<T>.handleResult(
         is SafeResult.Failure -> onError?.invoke(this)
     }
 }
+
+fun <T> SafeResult<T>.getSuccessOrNull(): T? {
+    return when (this) {
+        is SafeResult.Success -> this.data
+        else -> null
+    }
+}
+
+fun <T> SafeResult<T>.getErrorOrNull(): SafeResult.Failure? {
+    return when (this) {
+        is SafeResult.Failure -> this
+        else -> null
+    }
+}

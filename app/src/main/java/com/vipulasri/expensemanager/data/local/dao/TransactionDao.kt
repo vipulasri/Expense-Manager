@@ -1,5 +1,6 @@
 package com.vipulasri.expensemanager.data.local.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -13,10 +14,10 @@ import com.vipulasri.expensemanager.data.local.entity.TransactionEntity
 interface TransactionDao {
 
     @Query("SELECT SUM(amount) FROM `transaction` WHERE type=1")
-    suspend fun getTotalIncome(): Double
+    fun getTotalIncome(): LiveData<Double>
 
     @Query("SELECT SUM(amount) FROM `transaction` WHERE type=2")
-    suspend fun getTotalExpense(): Double
+    fun getTotalExpense(): LiveData<Double>
 
     @Insert
     suspend fun insert(transaction: TransactionEntity): Long
