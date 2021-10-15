@@ -1,5 +1,6 @@
 package com.vipulasri.expensemanager
 
+import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 
 /**
@@ -7,5 +8,5 @@ import dagger.hilt.android.HiltAndroidApp
  */
 
 @HiltAndroidApp
-class ExpenseManagerApplication {
+class ExpenseManagerApplication: Application() {
 }
