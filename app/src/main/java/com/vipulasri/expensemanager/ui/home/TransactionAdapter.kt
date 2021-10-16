@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.vipulasri.expensemanager.data.local.entity.TransactionEntity
+import com.vipulasri.expensemanager.data.local.entity.TransactionType
 import com.vipulasri.expensemanager.databinding.ItemTransactionBinding
 
 /**
@@ -36,7 +37,7 @@ class TransactionAdapter :
             binding.textDescription.text = entity.description ?: "--"
 
             val amountString = StringBuilder().apply {
-                if (entity.type == 2) {
+                if (entity.type == TransactionType.EXPENSE) {
                     append("- ")
                 }
                 append("$${entity.amount}")

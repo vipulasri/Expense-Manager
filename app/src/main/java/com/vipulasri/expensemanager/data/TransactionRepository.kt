@@ -3,6 +3,7 @@ package com.vipulasri.expensemanager.data
 import androidx.lifecycle.LiveData
 import com.vipulasri.expensemanager.data.local.dao.TransactionDao
 import com.vipulasri.expensemanager.data.local.entity.TransactionEntity
+import com.vipulasri.expensemanager.data.local.entity.TransactionType
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
@@ -27,7 +28,7 @@ class TransactionRepository(
         return withContext(dispatcher) {
             transactionDao.insert(
                 TransactionEntity(
-                    type = 1,
+                    type = TransactionType.INCOME,
                     amount = amount,
                     description = description,
                     timestamp = System.currentTimeMillis()
@@ -40,7 +41,7 @@ class TransactionRepository(
         return withContext(dispatcher) {
             transactionDao.insert(
                 TransactionEntity(
-                    type = 2,
+                    type = TransactionType.EXPENSE,
                     amount = amount,
                     description = description,
                     timestamp = System.currentTimeMillis()

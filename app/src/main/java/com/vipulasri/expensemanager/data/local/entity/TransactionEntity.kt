@@ -16,3 +16,8 @@ data class TransactionEntity(
     @ColumnInfo(name = "amount") val amount: Double,
     @ColumnInfo(name = "timestamp") val timestamp: Long
 )
+
+object TransactionType {
+    const val INCOME = 1
+    const val EXPENSE = 2
+}

@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import com.vipulasri.expensemanager.data.local.entity.TransactionEntity
+import com.vipulasri.expensemanager.data.local.entity.TransactionType
 
 /**
  * Created by Vipul Asri on 15/10/21.
@@ -13,10 +14,10 @@ import com.vipulasri.expensemanager.data.local.entity.TransactionEntity
 @Dao
 interface TransactionDao {
 
-    @Query("SELECT SUM(amount) FROM `transaction` WHERE type=1")
+    @Query("SELECT SUM(amount) FROM `transaction` WHERE type=${TransactionType.INCOME}")
     fun getTotalIncome(): LiveData<Double>
 
-    @Query("SELECT SUM(amount) FROM `transaction` WHERE type=2")
+    @Query("SELECT SUM(amount) FROM `transaction` WHERE type=${TransactionType.EXPENSE}")
     fun getTotalExpense(): LiveData<Double>
 
     @Query("SELECT * FROM `transaction` ORDER BY timestamp DESC")
