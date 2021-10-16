@@ -3,6 +3,7 @@ package com.vipulasri.expensemanager.ui.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.vipulasri.expensemanager.data.TransactionRepository
+import com.vipulasri.expensemanager.data.local.entity.TransactionEntity
 import com.vipulasri.expensemanager.ui.base.BaseVM
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -41,5 +42,7 @@ class HomeVM @Inject constructor(
 
             update()
         }
+
+    val transactions: LiveData<List<TransactionEntity>> = repository.getAllTransactions()
 
 }

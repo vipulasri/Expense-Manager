@@ -49,4 +49,8 @@ class TransactionRepository(
         }
     }
 
+    fun getAllTransactions(): LiveData<List<TransactionEntity>> {
+        return transactionDao.getAllTransactions()
+    }
+
 }
