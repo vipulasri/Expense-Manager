@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.vipulasri.expensemanager.databinding.ActivityHomeBinding
@@ -40,10 +41,12 @@ class HomeActivity : AppCompatActivity() {
     private fun setupObservers() {
         viewModel.totalIncome.observe(this, { income ->
             updateAmount(binding.content.textIncome, income)
+            updateExpenseProgress()
         })
 
         viewModel.totalExpense.observe(this, { expenses ->
             updateAmount(binding.content.textExpense, expenses)
+            updateExpenseProgress()
         })
 
         viewModel.balance.observe(this, { balance ->
@@ -64,6 +67,22 @@ class HomeActivity : AppCompatActivity() {
                 append("$${abs(safeAmount)}")
             }
         } ?: "--"
+    }
+
+    private fun updateExpenseProgress() {
+        val income = viewModel.totalIncome.value?.toInt() ?: 0
+        val expenses = viewModel.totalExpense.value?.toInt() ?: 0
+
+        if (income == 0 && expenses == 0) {
+            binding.content.progressExpense.isVisible = false
+            return
+        }
+
+        binding.content.progressExpense.run {
+            isVisible = true
+            progress = expenses
+            max = income
+        }
     }
 
 }
