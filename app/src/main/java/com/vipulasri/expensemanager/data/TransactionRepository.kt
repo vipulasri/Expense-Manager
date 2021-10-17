@@ -67,4 +67,10 @@ class TransactionRepository(
         return transactionDao.getAllTransactionsLiveData()
     }
 
+    suspend fun deleteTransaction(entity: TransactionEntity) {
+        withContext(dispatcher) {
+            transactionDao.delete(entity.id)
+        }
+    }
+
 }

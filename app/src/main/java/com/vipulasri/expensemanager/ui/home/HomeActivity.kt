@@ -1,10 +1,12 @@
 package com.vipulasri.expensemanager.ui.home
 
 import android.os.Bundle
+import android.widget.ListAdapter
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.vipulasri.expensemanager.databinding.ActivityHomeBinding
@@ -40,6 +42,7 @@ class HomeActivity : AppCompatActivity() {
         binding.content.recyclerView.run {
             layoutManager = LinearLayoutManager(this@HomeActivity, RecyclerView.VERTICAL, false)
             adapter = (this@HomeActivity).adapter
+            addSwipeToDelete(this)
         }
     }
 
@@ -88,6 +91,26 @@ class HomeActivity : AppCompatActivity() {
             progress = expenses
             max = income
         }
+    }
+
+    private fun addSwipeToDelete(recyclerView: RecyclerView) {
+        ItemTouchHelper(
+            object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+                override fun onMove(
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder,
+                    target: RecyclerView.ViewHolder
+                ): Boolean {
+                    return false
+                }
+
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    val position = viewHolder.adapterPosition
+                    val transaction = adapter.getTransaction(position)
+                    viewModel.deleteTransaction(transaction)
+                }
+            }
+        ).attachToRecyclerView(recyclerView)
     }
 
 }

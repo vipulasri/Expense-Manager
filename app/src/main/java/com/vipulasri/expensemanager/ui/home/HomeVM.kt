@@ -2,11 +2,12 @@ package com.vipulasri.expensemanager.ui.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.vipulasri.expensemanager.data.TransactionRepository
 import com.vipulasri.expensemanager.data.local.entity.TransactionEntity
 import com.vipulasri.expensemanager.ui.base.BaseVM
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -45,5 +46,11 @@ class HomeVM @Inject constructor(
         }
 
     val transactions: LiveData<List<TransactionEntity>> = repository.getAllTransactionsLiveData()
+
+    fun deleteTransaction(entity: TransactionEntity) {
+        viewModelScope.launch {
+            repository.deleteTransaction(entity)
+        }
+    }
 
 }

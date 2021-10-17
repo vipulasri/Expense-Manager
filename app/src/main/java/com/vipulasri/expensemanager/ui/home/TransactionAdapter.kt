@@ -37,6 +37,10 @@ class TransactionAdapter :
         holder.bindData(currentItem, hasSection, currentItemDate)
     }
 
+    fun getTransaction(position: Int): TransactionEntity {
+        return getItem(position)
+    }
+
     inner class TransactionViewHolder(private val binding: ItemTransactionBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
