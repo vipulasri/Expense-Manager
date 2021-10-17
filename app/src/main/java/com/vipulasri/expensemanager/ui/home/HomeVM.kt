@@ -2,6 +2,7 @@ package com.vipulasri.expensemanager.ui.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import com.vipulasri.expensemanager.data.TransactionRepository
 import com.vipulasri.expensemanager.data.local.entity.TransactionEntity
 import com.vipulasri.expensemanager.ui.base.BaseVM
@@ -43,6 +44,6 @@ class HomeVM @Inject constructor(
             update()
         }
 
-    val transactions: LiveData<List<TransactionEntity>> = repository.getAllTransactions()
+    val transactions: LiveData<List<TransactionEntity>> = repository.getAllTransactionsLiveData()
 
 }

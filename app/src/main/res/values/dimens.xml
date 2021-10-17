@@ -1,6 +1,8 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="padding">10dp</dimen>
+
+    <dimen name="padding">12dp</dimen>
+    <dimen name="padding_half">6dp</dimen>
 
     <dimen name="divider">1dp</dimen>
 </resources>

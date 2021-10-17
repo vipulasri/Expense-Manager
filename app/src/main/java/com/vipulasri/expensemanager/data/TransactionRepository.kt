@@ -5,6 +5,7 @@ import com.vipulasri.expensemanager.data.local.dao.TransactionDao
 import com.vipulasri.expensemanager.data.local.entity.TransactionEntity
 import com.vipulasri.expensemanager.data.local.entity.TransactionType
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 /**
@@ -50,8 +51,8 @@ class TransactionRepository(
         }
     }
 
-    fun getAllTransactions(): LiveData<List<TransactionEntity>> {
-        return transactionDao.getAllTransactions()
+    fun getAllTransactionsLiveData(): LiveData<List<TransactionEntity>> {
+        return transactionDao.getAllTransactionsLiveData()
     }
 
 }

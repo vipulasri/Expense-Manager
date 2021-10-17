@@ -21,7 +21,7 @@ interface TransactionDao {
     fun getTotalExpense(): LiveData<Double>
 
     @Query("SELECT * FROM `transaction` ORDER BY timestamp DESC")
-    fun getAllTransactions(): LiveData<List<TransactionEntity>>
+    fun getAllTransactionsLiveData(): LiveData<List<TransactionEntity>>
 
     @Insert
     suspend fun insert(transaction: TransactionEntity): Long

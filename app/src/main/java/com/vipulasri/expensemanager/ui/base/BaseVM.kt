@@ -9,8 +9,10 @@ import androidx.lifecycle.ViewModel
  */
 
 abstract class BaseVM : ViewModel() {
+
     protected fun <T> LiveData<T>.setValue(value: T) {
         if (this is MutableLiveData<T>) setValue(value)
         else error("Not a mutable live data.")
     }
+
 }
