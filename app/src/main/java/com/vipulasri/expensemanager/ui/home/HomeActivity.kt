@@ -8,6 +8,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.vipulasri.expensemanager.databinding.ActivityHomeBinding
+import com.vipulasri.expensemanager.ui.transaction.AddTransactionBottomSheet
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.abs
 
@@ -26,6 +27,10 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
+
+        binding.fabAddTransaction.setOnClickListener {
+            AddTransactionBottomSheet.show(supportFragmentManager)
+        }
 
         setupRecyclerView()
         setupObservers()

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="transaction_type">
+        <item>Income</item>
+        <item>Expense</item>
+    </array>
+</resources>

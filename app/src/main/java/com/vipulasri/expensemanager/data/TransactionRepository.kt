@@ -5,7 +5,6 @@ import com.vipulasri.expensemanager.data.local.dao.TransactionDao
 import com.vipulasri.expensemanager.data.local.entity.TransactionEntity
 import com.vipulasri.expensemanager.data.local.entity.TransactionType
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 /**
@@ -23,6 +22,19 @@ class TransactionRepository(
 
     fun getTotalExpense(): LiveData<Double> {
         return transactionDao.getTotalExpense()
+    }
+
+    suspend fun addTransaction(type: Int, amount: Double, description: String? = null): Long {
+        return withContext(dispatcher) {
+            transactionDao.insert(
+                TransactionEntity(
+                    type = type,
+                    amount = amount,
+                    description = description,
+                    timestamp = System.currentTimeMillis()
+                )
+            )
+        }
     }
 
     suspend fun addIncome(amount: Double, description: String? = null): Long {
