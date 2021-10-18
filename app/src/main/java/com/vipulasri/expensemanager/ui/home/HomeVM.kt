@@ -46,8 +46,6 @@ class HomeVM @Inject constructor(
             update()
         }
 
-    val transactions: LiveData<List<TransactionEntity>> = repository.getAllTransactionsLiveData()
-
     val transactionUiModels: LiveData<List<TransactionUiModel>> =
         repository.getTransactionUiModelLiveData()
 

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="date"
+            type="String" />
+    </data>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/text_date"
+        style="@style/TextAppearance.MaterialComponents.Body2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/divider"
+        android:padding="@dimen/padding"
+        android:text="@{ date }"
+        tools:text="10th December 2021" />
+
+</layout>
