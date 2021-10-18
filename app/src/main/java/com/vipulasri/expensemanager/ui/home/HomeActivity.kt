@@ -1,14 +1,16 @@
 package com.vipulasri.expensemanager.ui.home
 
 import android.os.Bundle
-import android.widget.ListAdapter
+import android.util.Log
+import android.view.View
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.epoxy.EpoxyTouchHelper
+import com.vipulasri.expensemanager.TransactionBindingModel_
 import com.vipulasri.expensemanager.databinding.ActivityHomeBinding
 import com.vipulasri.expensemanager.ui.transaction.AddTransactionBottomSheet
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,7 +23,7 @@ class HomeActivity : AppCompatActivity() {
 
     private val viewModel: HomeVM by viewModels()
 
-    private val adapter = TransactionAdapter()
+    private val controller = TransactionController()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +43,7 @@ class HomeActivity : AppCompatActivity() {
     private fun setupRecyclerView() {
         binding.content.recyclerView.run {
             layoutManager = LinearLayoutManager(this@HomeActivity, RecyclerView.VERTICAL, false)
-            adapter = (this@HomeActivity).adapter
+            adapter = controller.adapter
             addSwipeToDelete(this)
         }
     }
@@ -61,8 +63,9 @@ class HomeActivity : AppCompatActivity() {
             updateAmount(binding.content.textBalance, balance)
         })
 
-        viewModel.transactions.observe(this, { transactions ->
-            adapter.submitList(transactions.orEmpty().toMutableList())
+        viewModel.transactionUiModels.observe(this, { transactions ->
+            Log.d("HomeActivity", "transaction ui models: $transactions")
+            controller.setData(transactions)
         })
     }
 
@@ -94,23 +97,21 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun addSwipeToDelete(recyclerView: RecyclerView) {
-        ItemTouchHelper(
-            object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-                override fun onMove(
-                    recyclerView: RecyclerView,
-                    viewHolder: RecyclerView.ViewHolder,
-                    target: RecyclerView.ViewHolder
-                ): Boolean {
-                    return false
+        EpoxyTouchHelper.initSwiping(recyclerView)
+            .leftAndRight()
+            .withTarget(TransactionBindingModel_::class.java)
+            .andCallbacks(object : EpoxyTouchHelper.SwipeCallbacks<TransactionBindingModel_>() {
+                override fun onSwipeCompleted(
+                    model: TransactionBindingModel_?,
+                    itemView: View?,
+                    position: Int,
+                    direction: Int
+                ) {
+                    model?.transaction()?.let { transaction ->
+                        viewModel.deleteTransaction(transaction)
+                    }
                 }
-
-                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    val position = viewHolder.adapterPosition
-                    val transaction = adapter.getTransaction(position)
-                    viewModel.deleteTransaction(transaction)
-                }
-            }
-        ).attachToRecyclerView(recyclerView)
+            })
     }
 
 }

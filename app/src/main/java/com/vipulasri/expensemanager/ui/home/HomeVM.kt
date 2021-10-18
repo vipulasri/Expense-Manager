@@ -5,6 +5,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.viewModelScope
 import com.vipulasri.expensemanager.data.TransactionRepository
 import com.vipulasri.expensemanager.data.local.entity.TransactionEntity
+import com.vipulasri.expensemanager.model.TransactionUiModel
 import com.vipulasri.expensemanager.ui.base.BaseVM
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -45,7 +46,8 @@ class HomeVM @Inject constructor(
             update()
         }
 
-    val transactions: LiveData<List<TransactionEntity>> = repository.getAllTransactionsLiveData()
+    val transactionUiModels: LiveData<List<TransactionUiModel>> =
+        repository.getTransactionUiModelLiveData()
 
     fun deleteTransaction(entity: TransactionEntity) {
         viewModelScope.launch {

@@ -35,6 +35,10 @@ android {
     }
     buildFeatures {
         viewBinding true
+        dataBinding true
+    }
+    kapt {
+        correctErrorTypes = true
     }
 }
 
@@ -60,6 +64,12 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
+
+    implementation 'com.google.code.gson:gson:2.8.8'
+
+    implementation "com.airbnb.android:epoxy:$epoxy_version"
+    implementation "com.airbnb.android:epoxy-databinding:$epoxy_version"
+    kapt "com.airbnb.android:epoxy-processor:$epoxy_version"
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
