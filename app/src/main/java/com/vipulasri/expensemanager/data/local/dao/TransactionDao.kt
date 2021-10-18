@@ -25,8 +25,8 @@ interface TransactionDao {
     fun getAllTransactionsLiveData(): LiveData<List<TransactionEntity>>
 
     @Query(
-        "SELECT date,  " +
-                "GROUP_CONCAT('[{id:\"' || id || '\", type:\"' || type || '\", description:\"' || description || '\", amount:\"' || amount || '\", date:\"' || date || '\", timestamp:\"' || timestamp ||'\"}]') transactions " +
+        "SELECT date, " +
+                "GROUP_CONCAT('{\"id\":\"' || id || '\", \"type\":\"' || type || '\", \"description\":\"' || description || '\", \"amount\":\"' || amount || '\", \"date\":\"' || date || '\", \"timestamp\":\"' || timestamp ||'\"}') transactions " +
                 "FROM `transaction` GROUP BY date ORDER BY timestamp DESC"
     )
     fun getAllTransactionUiModelLiveData(): LiveData<List<TransactionUiModel>>

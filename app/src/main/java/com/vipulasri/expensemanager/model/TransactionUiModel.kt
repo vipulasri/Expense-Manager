@@ -1,6 +1,5 @@
 package com.vipulasri.expensemanager.model
 
-import androidx.room.Entity
 import com.vipulasri.expensemanager.data.local.entity.TransactionEntity
 
 /**
@@ -8,6 +7,6 @@ import com.vipulasri.expensemanager.data.local.entity.TransactionEntity
  */
 
 data class TransactionUiModel(
-    val date: String?,
-    val transactions: String?
+    val date: String,
+    val transactions: List<TransactionEntity>
 )
