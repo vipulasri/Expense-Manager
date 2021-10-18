@@ -1,7 +1,7 @@
 package com.vipulasri.expensemanager.ui.home
 
 import android.os.Bundle
-import android.widget.ListAdapter
+import android.util.Log
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -63,6 +63,10 @@ class HomeActivity : AppCompatActivity() {
 
         viewModel.transactions.observe(this, { transactions ->
             adapter.submitList(transactions.orEmpty().toMutableList())
+        })
+
+        viewModel.transactionUiModels.observe(this, { transactions ->
+            Log.d("HomeActivity", "transactions ui models: $transactions")
         })
     }
 

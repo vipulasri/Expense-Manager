@@ -2,6 +2,7 @@ package com.vipulasri.expensemanager.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.vipulasri.expensemanager.data.local.dao.TransactionDao
 import com.vipulasri.expensemanager.data.local.entity.TransactionEntity
 
@@ -14,6 +15,7 @@ import com.vipulasri.expensemanager.data.local.entity.TransactionEntity
     entities = [TransactionEntity::class],
     exportSchema = false
 )
+@TypeConverters(Converters::class)
 abstract class ExpenseManagerDatabase : RoomDatabase() {
 
     abstract fun transactionDao(): TransactionDao

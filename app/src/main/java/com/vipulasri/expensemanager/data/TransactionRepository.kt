@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import com.vipulasri.expensemanager.data.local.dao.TransactionDao
 import com.vipulasri.expensemanager.data.local.entity.TransactionEntity
 import com.vipulasri.expensemanager.data.local.entity.TransactionType
+import com.vipulasri.expensemanager.extensions.toDate
+import com.vipulasri.expensemanager.model.TransactionUiModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
@@ -24,40 +26,24 @@ class TransactionRepository(
         return transactionDao.getTotalExpense()
     }
 
+    suspend fun addIncome(amount: Double, description: String? = null): Long {
+        return addTransaction(TransactionType.INCOME, amount, description)
+    }
+
+    suspend fun addExpense(amount: Double, description: String? = null): Long {
+        return addTransaction(TransactionType.EXPENSE, amount, description)
+    }
+
     suspend fun addTransaction(type: Int, amount: Double, description: String? = null): Long {
         return withContext(dispatcher) {
+            val nowMillis = System.currentTimeMillis()
             transactionDao.insert(
                 TransactionEntity(
                     type = type,
                     amount = amount,
                     description = description,
-                    timestamp = System.currentTimeMillis()
-                )
-            )
-        }
-    }
-
-    suspend fun addIncome(amount: Double, description: String? = null): Long {
-        return withContext(dispatcher) {
-            transactionDao.insert(
-                TransactionEntity(
-                    type = TransactionType.INCOME,
-                    amount = amount,
-                    description = description,
-                    timestamp = System.currentTimeMillis()
-                )
-            )
-        }
-    }
-
-    suspend fun addExpense(amount: Double, description: String? = null): Long {
-        return withContext(dispatcher) {
-            transactionDao.insert(
-                TransactionEntity(
-                    type = TransactionType.EXPENSE,
-                    amount = amount,
-                    description = description,
-                    timestamp = System.currentTimeMillis()
+                    date = nowMillis.toDate(),
+                    timestamp = nowMillis,
                 )
             )
         }
@@ -65,6 +51,10 @@ class TransactionRepository(
 
     fun getAllTransactionsLiveData(): LiveData<List<TransactionEntity>> {
         return transactionDao.getAllTransactionsLiveData()
+    }
+
+    fun getTransactionUiModelLiveData(): LiveData<List<TransactionUiModel>> {
+        return transactionDao.getAllTransactionUiModelLiveData()
     }
 
     suspend fun deleteTransaction(entity: TransactionEntity) {
