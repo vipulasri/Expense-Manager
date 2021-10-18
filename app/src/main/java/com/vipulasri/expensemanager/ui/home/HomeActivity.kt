@@ -6,10 +6,12 @@ import android.view.View
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.epoxy.EpoxyTouchHelper
+import com.vipulasri.expensemanager.R
 import com.vipulasri.expensemanager.TransactionBindingModel_
 import com.vipulasri.expensemanager.databinding.ActivityHomeBinding
 import com.vipulasri.expensemanager.ui.transaction.AddTransactionBottomSheet
@@ -94,6 +96,12 @@ class HomeActivity : AppCompatActivity() {
             progress = expenses
             max = income
         }
+
+        val indicatorColor = if (expenses > income) {
+            android.R.color.holo_red_dark
+        } else R.color.purple_500
+
+        binding.content.progressExpense.setIndicatorColor(ContextCompat.getColor(this, indicatorColor))
     }
 
     private fun addSwipeToDelete(recyclerView: RecyclerView) {
