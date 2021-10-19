@@ -13,7 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.epoxy.EpoxyTouchHelper
 import com.vipulasri.expensemanager.R
 import com.vipulasri.expensemanager.TransactionBindingModel_
+import com.vipulasri.expensemanager.data.local.entity.TransactionType
 import com.vipulasri.expensemanager.databinding.ActivityHomeBinding
+import com.vipulasri.expensemanager.extensions.getColorByTransactionType
 import com.vipulasri.expensemanager.ui.transaction.AddTransactionBottomSheet
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.abs
@@ -53,11 +55,13 @@ class HomeActivity : AppCompatActivity() {
     private fun setupObservers() {
         viewModel.totalIncome.observe(this, { income ->
             updateAmount(binding.content.textIncome, income)
+            updateTextColor(binding.content.textIncome, TransactionType.INCOME)
             updateExpenseProgress()
         })
 
         viewModel.totalExpense.observe(this, { expenses ->
             updateAmount(binding.content.textExpense, expenses)
+            updateTextColor(binding.content.textExpense, TransactionType.EXPENSE)
             updateExpenseProgress()
         })
 
@@ -82,6 +86,15 @@ class HomeActivity : AppCompatActivity() {
         } ?: "--"
     }
 
+    private fun updateTextColor(textView: TextView, transactionType: Int) {
+        textView.setTextColor(
+            ContextCompat.getColor(
+                this,
+                transactionType.getColorByTransactionType()
+            )
+        )
+    }
+
     private fun updateExpenseProgress() {
         val income = viewModel.totalIncome.value?.toInt() ?: 0
         val expenses = viewModel.totalExpense.value?.toInt() ?: 0
@@ -101,7 +114,12 @@ class HomeActivity : AppCompatActivity() {
             android.R.color.holo_red_dark
         } else R.color.purple_500
 
-        binding.content.progressExpense.setIndicatorColor(ContextCompat.getColor(this, indicatorColor))
+        binding.content.progressExpense.setIndicatorColor(
+            ContextCompat.getColor(
+                this,
+                indicatorColor
+            )
+        )
     }
 
     private fun addSwipeToDelete(recyclerView: RecyclerView) {

@@ -33,6 +33,7 @@
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/text_amount"
             style="@style/TextAppearance.MaterialComponents.Body2"
+            applyTextColorBasedOnTransactionType="@{ transaction }"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{ amount }"
