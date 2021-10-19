@@ -11,6 +11,8 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.vipulasri.expensemanager.R
 import com.vipulasri.expensemanager.data.local.entity.TransactionType
@@ -51,6 +53,15 @@ class AddTransactionBottomSheet : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        dialog?.setOnShowListener {
+            val dialog = it as BottomSheetDialog
+            val bottomSheet = dialog.findViewById<View>(R.id.design_bottom_sheet)
+            bottomSheet?.let { sheet ->
+                dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
+                sheet.parent.parent.requestLayout()
+            }
+        }
 
         setupObservers()
         setupTransactionType()
