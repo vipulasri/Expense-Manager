@@ -24,10 +24,12 @@ class TransactionController : TypedEpoxyController<List<TransactionUiModel>>() {
                 }
 
                 buildSection(uiModel.date)
-                uiModel.transactions.forEach { transaction ->
-                    buildTransaction(transaction)
-                }
-            }?: buildEmptyTransaction()
+                uiModel.transactions
+                    .sortedByDescending { it.timestamp }
+                    .forEach { transaction ->
+                        buildTransaction(transaction)
+                    }
+            } ?: buildEmptyTransaction()
     }
 
     private fun buildEmptyTransaction() {
