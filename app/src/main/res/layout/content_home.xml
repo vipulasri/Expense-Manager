@@ -96,6 +96,8 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/padding"
         android:layout_marginTop="@dimen/padding_double"
+        app:trackCornerRadius="@dimen/expense_summary_progress_corner"
+        app:trackThickness="@dimen/expense_summary_progress_height"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/barrier_content_summary" />
