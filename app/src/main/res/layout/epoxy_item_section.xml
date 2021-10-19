@@ -14,8 +14,8 @@
         style="@style/TextAppearance.MaterialComponents.Body2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/divider"
         android:padding="@dimen/padding"
+        android:background="@color/section"
         android:text="@{ date }"
         tools:text="10th December 2021" />
 

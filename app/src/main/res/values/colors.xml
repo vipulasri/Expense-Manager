@@ -10,6 +10,7 @@
 
     <color name="divider">#1f000000</color> <!-- 12% black -->
 
+    <color name="section">#EDE7F6</color>
     <color name="income">#388E3C</color>
     <color name="expense">#D32F2F</color>
 

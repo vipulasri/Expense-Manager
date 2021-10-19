@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="divider">#1fFFFFFF</color> <!-- 12% white -->
+
+    <color name="section">@color/purple_200</color>
+
+</resources>
